@@ -79,6 +79,9 @@ function pintarMenu() {
     const enlaceInicio = crearEnlaceMenu("🏠 Inicio", "index.html", false);
     navMenu.appendChild(enlaceInicio);
 
+    const enlaceMonstruo = crearEnlaceMenu("🧠 El monstruo de mi cabeza", "index.html#monstruo-cabeza", false);
+    navMenu.appendChild(enlaceMonstruo);
+
     for (let i = 0; i < categorias.length; i++) {
         const categoria = categorias[i];
 

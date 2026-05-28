@@ -439,3 +439,73 @@ footer span {
     color: var(--white);
     border-bottom-color: var(--blue-bright);
 }
+
+/* ANCHO GENERAL DE LA WEB */
+
+.header-inner,
+.nav-inner {
+    max-width: 1250px;
+}
+
+/* MENÚ MÓVIL TIPO HAMBURGUESA */
+
+.mobile-menu-toggle {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+        width: calc(100% - 24px);
+        margin: 10px 12px;
+        padding: 12px 14px;
+        border: 1px solid rgba(147, 197, 253, 0.35);
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(29, 78, 216, 0.95), rgba(59, 130, 246, 0.9));
+        color: #ffffff;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .nav-inner {
+        display: none;
+        width: 100%;
+        padding: 0 12px 12px;
+        flex-direction: column;
+        gap: 8px;
+        overflow-x: hidden;
+    }
+
+    nav.nav-open .nav-inner {
+        display: flex;
+    }
+
+    .nav-btn,
+    .nav-admin-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        border: 1px solid rgba(147, 197, 253, 0.18);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 12px 14px;
+    }
+
+    .nav-btn.active,
+    .nav-admin-btn.active {
+        background: rgba(59, 130, 246, 0.22);
+        border-color: rgba(147, 197, 253, 0.45);
+    }
+}

@@ -34,15 +34,11 @@
     </header>
 
     <nav>
-        <div class="nav-inner">
-            <a class="nav-btn" href="index.html">🏠 Inicio</a>
-            <a class="nav-btn" href="cuadrante.html?categoria=benjamin">Cuadrante <span
-                    class="nav-cat">Benjamín</span></a>
-            <a class="nav-btn" href="cuadrante.html?categoria=alevin">Cuadrante <span
-                    class="nav-cat alevin">Alevín</span></a>
-            <a class="nav-btn" href="patrocinadores.html">🤝 Patrocinadores</a>
-            <a class="nav-admin-btn active" href="login.html">⚙ Admin</a>
-        </div>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button">
+            ☰ Menú
+        </button>
+
+        <div class="nav-inner" id="nav-menu"></div>
     </nav>
 
     <main class="login-page">
@@ -75,6 +71,7 @@
         <span>Acceso privado para administradores</span>
     </footer>
 
+    <script src="js/menu-movil.js"></script>
     <script src="js/login.js"></script>
 </body>
 

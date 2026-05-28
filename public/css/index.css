@@ -594,3 +594,143 @@
         height: 60px;
     }
 }
+
+/* SECCIÓN EL MONSTRUO DE MI CABEZA */
+
+.campaign-info-section {
+    max-width: 1100px;
+    margin: 0 auto 48px;
+    padding: 28px 24px;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.campaign-image-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    border-radius: 22px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.campaign-image-box img {
+    width: 100%;
+    max-height: 800px;
+    object-fit: contain;
+    border-radius: 16px;
+    display: block;
+}
+
+.campaign-menu-box {
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.28), rgba(7, 20, 38, 0.98));
+    border: 1px solid rgba(147, 197, 253, 0.32);
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: 0 14px 42px rgba(0, 0, 0, 0.28);
+}
+
+.campaign-badge {
+    display: inline-block;
+    background: rgba(147, 197, 253, 0.16);
+    border: 1px solid rgba(147, 197, 253, 0.45);
+    color: #dbeafe;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.campaign-menu-box h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 5vw, 54px);
+    letter-spacing: 3px;
+    color: #ffffff;
+    margin: 0 0 10px;
+}
+
+.campaign-menu-box p {
+    color: #dbeafe;
+    line-height: 1.5;
+    margin: 0 0 18px;
+}
+
+.campaign-links {
+    display: grid;
+    gap: 10px;
+}
+
+.campaign-links a {
+    display: block;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(147, 197, 253, 0.28);
+    border-radius: 12px;
+    padding: 13px 14px;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: 0.2s;
+}
+
+.campaign-links a:hover {
+    background: rgba(59, 130, 246, 0.28);
+    border-color: rgba(147, 197, 253, 0.55);
+    transform: translateX(4px);
+}
+
+.campaign-socials {
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(147, 197, 253, 0.22);
+}
+
+.campaign-socials p {
+    margin: 0 0 10px;
+    color: #bfdbfe;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.campaign-socials a {
+    padding: 7px 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: #ffffff;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+.campaign-socials a:hover {
+    background: transparent;
+    transform: none;
+    color: #93c5fd;
+}
+
+@media (max-width: 800px) {
+    .campaign-info-section {
+        grid-template-columns: 1fr;
+        padding: 20px 16px;
+    }
+
+    .campaign-menu-box {
+        padding: 20px;
+    }
+
+    .campaign-image-box img {
+        max-height: 460px;
+    }
+}

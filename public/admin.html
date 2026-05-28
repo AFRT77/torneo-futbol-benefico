@@ -34,15 +34,11 @@
     </header>
 
     <nav>
-        <div class="nav-inner">
-            <a class="nav-btn" href="index.html">🏠 Inicio</a>
-            <a class="nav-btn" href="cuadrante.html?categoria=benjamin">Cuadrante <span
-                    class="nav-cat">Benjamín</span></a>
-            <a class="nav-btn" href="cuadrante.html?categoria=alevin">Cuadrante <span
-                    class="nav-cat alevin">Alevín</span></a>
-            <a class="nav-btn" href="patrocinadores.html">🤝 Patrocinadores</a>
-            <a class="nav-admin-btn active" href="admin.html">⚙ Admin</a>
-        </div>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button">
+            ☰ Menú
+        </button>
+
+        <div class="nav-inner" id="nav-menu"></div>
     </nav>
 
     <main class="admin-page">
@@ -236,7 +232,8 @@
 
                 <div class="admin-actions">
                     <p>
-                        Añade, modifica, oculta o elimina patrocinadores y colaboradores. Puedes usar un icono temporal o una ruta de
+                        Añade, modifica, oculta o elimina patrocinadores y colaboradores. Puedes usar un icono temporal
+                        o una ruta de
                         logo.
                     </p>
 
@@ -285,6 +282,7 @@
         <span>Gestión privada del torneo</span>
     </footer>
 
+    <script src="js/menu-movil.js"></script>
     <script src="js/admin.js"></script>
 </body>
 

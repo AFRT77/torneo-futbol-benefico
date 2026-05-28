@@ -227,6 +227,9 @@ function pintarMenuAdmin() {
     const enlaceInicio = crearEnlaceMenuAdmin("🏠 Inicio", "index.html", false, false);
     navMenu.appendChild(enlaceInicio);
 
+    const enlaceMonstruo = crearEnlaceMenu("🧠 El monstruo de mi cabeza", "index.html#monstruo-cabeza", false);
+    navMenu.appendChild(enlaceMonstruo);
+
     for (let i = 0; i < categoriasAdmin.length; i++) {
         const categoria = categoriasAdmin[i];
 
