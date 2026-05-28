@@ -1,0 +1,364 @@
+/* HERO PRINCIPAL */
+
+.home-hero {
+    background: linear-gradient(180deg, #0d2244 0%, #0a1628 100%);
+    padding: 48px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+}
+
+.home-hero-badge {
+    display: inline-block;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    color: var(--red-bright);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.home-hero h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 8vw, 80px);
+    letter-spacing: 4px;
+    line-height: 0.9;
+    position: relative;
+}
+
+.line-yellow {
+    color: var(--gold);
+}
+
+.line-red {
+    color: var(--red-bright);
+}
+
+.home-hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    color: var(--gray-light);
+    margin-top: 16px;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.home-hero-ribbon {
+    display: inline-block;
+    font-size: 28px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* TARJETAS DE INFORMACIÓN */
+
+.home-info-grid {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.info-card {
+    background: linear-gradient(135deg, #0d2244, #0a1628);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(37, 99, 235, 0.5);
+}
+
+.info-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue-bright), var(--gold));
+}
+
+.info-card .card-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.info-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.info-card p {
+    font-size: 15px;
+    color: var(--gray-light);
+    line-height: 1.5;
+}
+
+.info-card p strong {
+    color: var(--white);
+    font-weight: 600;
+}
+
+/* CATEGORÍAS */
+
+.categories-section {
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.cat-card {
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.cat-card:hover {
+    transform: translateY(-4px);
+}
+
+.cat-card.benjamin {
+    background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+    border-color: rgba(96, 165, 250, 0.4);
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.3);
+}
+
+.cat-card.alevin {
+    background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+    border-color: rgba(248, 113, 113, 0.4);
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.3);
+}
+
+.cat-card .cat-emoji {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.cat-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
+
+.cat-card p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+}
+
+.cat-card .cat-time {
+    margin-top: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.cat-btn {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    transition: background 0.2s;
+}
+
+.cat-card:hover .cat-btn {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* EQUIPOS */
+
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.team-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.team-card:hover {
+    background: rgba(37, 99, 235, 0.15);
+    border-color: rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px);
+}
+
+.team-card .team-logo {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-mid));
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.team-card .team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-light);
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* RESPONSIVE TABLET Y PC */
+
+@media (min-width: 700px) {
+    .home-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .categories-section {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .teams-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1000px) {
+    .home-info-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* AJUSTES MÓVIL */
+
+@media (max-width: 420px) {
+    .home-hero {
+        padding: 36px 14px;
+    }
+
+    .home-hero-badge {
+        font-size: 10px;
+        letter-spacing: 2px;
+        padding: 6px 12px;
+    }
+
+    .home-hero h2 {
+        font-size: 42px;
+        letter-spacing: 2px;
+    }
+
+    .home-hero-sub {
+        font-size: 15px;
+    }
+
+    .home-info-grid {
+        margin: 28px auto;
+        padding: 0 14px;
+    }
+
+    .info-card {
+        padding: 20px;
+    }
+
+    .cat-card {
+        padding: 24px 18px;
+    }
+
+    .teams-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+/* SORTEOS */
+
+.sorteos-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.sorteo-card {
+    background: linear-gradient(135deg, #1c1f2e, #0d2244);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+.sorteo-card .sorteo-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.sorteo-card .sorteo-icon img {
+    width: 54px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.sorteo-card p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    color: var(--gold-light);
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+}
+
+@media (min-width: 600px) {
+    .sorteos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1000px) {
+    .sorteos-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}

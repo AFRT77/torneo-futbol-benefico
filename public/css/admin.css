@@ -1,0 +1,694 @@
+/* ADMIN - MOBILE FIRST */
+
+.admin-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 16px 56px;
+}
+
+.admin-top {
+    background: linear-gradient(135deg, #0d2244, #0a1628);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.admin-top h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+}
+
+.admin-top p {
+    color: var(--gray-light);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* TABS */
+
+.admin-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 22px;
+}
+
+.admin-tab {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--gray);
+    transition: all 0.2s;
+}
+
+.admin-tab.active {
+    background: var(--blue-bright);
+    color: var(--white);
+    border-color: var(--blue-bright);
+}
+
+.admin-tab:hover {
+    color: var(--white);
+}
+
+/* SECCIONES */
+
+.admin-section {
+    display: none;
+}
+
+.admin-section.active {
+    display: block;
+}
+
+.edit-section {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.edit-section-header {
+    padding: 13px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+/* FORMULARIOS */
+
+.form-grid {
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.edit-row input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.edit-row input:focus {
+    border-color: var(--blue-bright);
+}
+
+/* ACCIONES */
+
+.admin-actions {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-actions p {
+    color: var(--gray-light);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.btn-add {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(22, 163, 74, 0.18);
+    border: 1px solid rgba(22, 163, 74, 0.45);
+    border-radius: 8px;
+    color: #86efac;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background: rgba(22, 163, 74, 0.28);
+}
+
+.btn-mini-danger {
+    padding: 10px 12px;
+    background: rgba(220, 38, 38, 0.2);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    border-radius: 8px;
+    color: #fca5a5;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn-mini-danger:hover {
+    background: rgba(220, 38, 38, 0.35);
+}
+
+/* FILAS EDITABLES */
+
+.edit-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.edit-row:last-child {
+    border-bottom: none;
+}
+
+.category-row::before,
+.match-row::before,
+.sponsor-row::before,
+.raffle-row::before {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    color: var(--gold-light);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.category-row::before {
+    content: "Categoría";
+}
+
+.match-row::before {
+    content: "Partido";
+}
+
+.sponsor-row::before {
+    content: "Patrocinador";
+}
+
+.raffle-row::before {
+    content: "Sorteo";
+}
+
+/* BOTÓN GUARDAR */
+
+.save-btn {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: linear-gradient(90deg, var(--blue-bright), #1d4ed8);
+    border: none;
+    border-radius: 8px;
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+}
+
+.save-btn:hover {
+    opacity: 0.9;
+}
+
+.save-success {
+    display: none;
+    text-align: center;
+    padding: 12px;
+    background: rgba(22, 163, 74, 0.15);
+    border: 1px solid rgba(22, 163, 74, 0.3);
+    border-radius: 8px;
+    color: #86efac;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+/* TABLET */
+
+@media (min-width: 700px) {
+    .admin-page {
+        padding: 32px 24px 60px;
+    }
+
+    .admin-top {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .admin-top .btn-danger {
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-actions {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .admin-actions p {
+        max-width: 620px;
+    }
+
+    .btn-add {
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .category-row {
+        grid-template-columns: 1fr 1fr 1fr auto;
+        align-items: center;
+    }
+
+    .sponsor-row {
+        grid-template-columns: 70px 1fr 1fr 1fr auto;
+        align-items: center;
+    }
+
+    .raffle-row {
+        grid-template-columns: 70px 1fr 1.5fr auto;
+        align-items: center;
+    }
+
+    .category-row::before,
+    .match-row::before,
+    .sponsor-row::before,
+    .raffle-row::before {
+        display: none;
+    }
+}
+
+/* PC */
+
+@media (min-width: 1000px) {
+    .match-row {
+        grid-template-columns: 0.8fr 0.8fr 1fr 1fr 1fr 80px 80px auto;
+        align-items: center;
+    }
+}
+
+/* MÓVIL PEQUEÑO */
+
+@media (max-width: 420px) {
+    .admin-page {
+        padding: 24px 14px 48px;
+    }
+
+    .admin-top {
+        padding: 18px;
+    }
+
+    .admin-top h2 {
+        font-size: 28px;
+    }
+
+    .admin-tab {
+        padding: 9px 13px;
+        font-size: 13px;
+    }
+
+    .edit-row {
+        padding: 12px;
+    }
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+.admin-message {
+    display: none;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+.admin-message.success {
+    display: block;
+    background: rgba(22, 163, 74, 0.15);
+    border: 1px solid rgba(22, 163, 74, 0.3);
+    color: #86efac;
+}
+
+.admin-message.error {
+    display: block;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.35);
+    color: #fca5a5;
+}
+
+.category-admin-card {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.category-admin-card:last-child {
+    border-bottom: none;
+}
+
+.category-admin-card textarea,
+.category-admin-card select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+.category-admin-card textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.category-admin-card select option {
+    color: #000000;
+}
+
+.category-admin-card small {
+    display: block;
+    margin-top: 6px;
+    color: var(--gray);
+    font-size: 12px;
+}
+
+.btn-eliminar-categoria {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.empty-admin-box {
+    padding: 24px;
+    color: var(--gray-light);
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+}
+
+@media (min-width: 700px) {
+    .btn-eliminar-categoria {
+        width: auto;
+        margin-left: 14px;
+    }
+}
+
+/* ADMIN PARTIDOS */
+
+.admin-filter-box {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-filter-box label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 6px;
+}
+
+.admin-filter-box select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+.admin-filter-box select option {
+    color: #000000;
+}
+
+.partido-admin-card {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.partido-admin-card:last-child {
+    border-bottom: none;
+}
+
+.partido-admin-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.partido-admin-title strong {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+}
+
+.partido-admin-title span {
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.partido-admin-card select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+.partido-admin-card select option {
+    color: #000000;
+}
+
+.btn-eliminar-partido {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (min-width: 700px) {
+    .partido-admin-title {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .btn-eliminar-partido {
+        width: auto;
+        margin-left: 14px;
+    }
+}
+
+/* ADMIN PATROCINADORES */
+
+.patrocinador-admin-card {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.patrocinador-admin-card:last-child {
+    border-bottom: none;
+}
+
+.patrocinador-admin-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.patrocinador-admin-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue-accent));
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.patrocinador-admin-title strong {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+}
+
+.patrocinador-admin-title span {
+    display: block;
+    font-size: 13px;
+    color: var(--gray);
+    margin-top: 2px;
+}
+
+.patrocinador-admin-card select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+.patrocinador-admin-card select option {
+    color: #000000;
+}
+
+.btn-eliminar-patrocinador {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (min-width: 700px) {
+    .btn-eliminar-patrocinador {
+        width: auto;
+        margin-left: 14px;
+    }
+}
+
+/* ADMIN SORTEOS */
+
+.sorteo-admin-card {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sorteo-admin-card:last-child {
+    border-bottom: none;
+}
+
+.sorteo-admin-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.sorteo-admin-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue-accent));
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.sorteo-admin-title strong {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+}
+
+.sorteo-admin-title span {
+    display: block;
+    font-size: 13px;
+    color: var(--gray);
+    margin-top: 2px;
+}
+
+.sorteo-admin-card select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+.sorteo-admin-card select option {
+    color: #000000;
+}
+
+.btn-eliminar-sorteo {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (min-width: 700px) {
+    .btn-eliminar-sorteo {
+        width: auto;
+        margin-left: 14px;
+    }
+}

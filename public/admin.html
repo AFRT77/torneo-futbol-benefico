@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel Administración - Torneo</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="header-logo">⚽</div>
+
+            <div class="header-titles">
+                <h1>PANEL <span>ADMIN</span></h1>
+                <p>Gestión reutilizable del torneo</p>
+            </div>
+
+            <div class="header-date">
+                <div class="day">⚙</div>
+                <div class="month">Admin</div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-inner">
+            <a class="nav-btn" href="index.html">🏠 Inicio</a>
+            <a class="nav-btn" href="cuadrante.html?categoria=benjamin">Cuadrante <span
+                    class="nav-cat">Benjamín</span></a>
+            <a class="nav-btn" href="cuadrante.html?categoria=alevin">Cuadrante <span
+                    class="nav-cat alevin">Alevín</span></a>
+            <a class="nav-btn" href="patrocinadores.html">🤝 Patrocinadores</a>
+            <a class="nav-admin-btn active" href="admin.html">⚙ Admin</a>
+        </div>
+    </nav>
+
+    <main class="admin-page">
+
+        <section class="admin-top">
+            <div>
+                <h2>Panel de administración</h2>
+                <p>
+                    Desde aquí se podrán modificar los datos del torneo sin tocar el código.
+                </p>
+            </div>
+
+            <button class="btn-danger" id="btn-logout">Cerrar sesión</button>
+        </section>
+
+        <section class="admin-tabs">
+            <button class="admin-tab active" data-tab="general">Datos generales</button>
+            <button class="admin-tab" data-tab="categorias">Categorías</button>
+            <button class="admin-tab" data-tab="partidos">Partidos</button>
+            <button class="admin-tab" data-tab="patrocinadores">Patrocinadores</button>
+            <button class="admin-tab" data-tab="sorteos">Sorteos</button>
+        </section>
+
+        <!-- DATOS GENERALES -->
+        <section class="admin-section active" id="tab-general">
+            <div class="edit-section">
+                <div class="edit-section-header">Datos generales del torneo</div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre principal</label>
+                        <input type="text" id="nombreHeader">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Texto destacado</label>
+                        <input type="text" id="nombreDestacado">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Club organizador</label>
+                        <input type="text" id="club">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Causa corta</label>
+                        <input type="text" id="causa">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Causa completa</label>
+                        <input type="text" id="causaCompleta">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hashtag</label>
+                        <input type="text" id="hashtag">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input type="text" id="fechaTexto">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Día</label>
+                        <input type="text" id="dia">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mes</label>
+                        <input type="text" id="mes">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lugar</label>
+                        <input type="text" id="lugar">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input type="text" id="ciudad">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Texto del footer</label>
+                        <input type="text" id="footerTexto">
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>Descripción</label>
+                        <input type="text" id="descripcion">
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>Logo</label>
+                        <input type="text" id="logo" placeholder="imagenes/general/logo.png">
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>Imagen principal</label>
+                        <input type="text" id="imagenPrincipal" placeholder="imagenes/general/cartel.png">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS -->
+        <section class="admin-section" id="tab-categorias">
+            <div class="edit-section">
+                <div class="edit-section-header">Categorías del torneo</div>
+
+                <div class="admin-actions">
+                    <p>
+                        Añade o modifica categorías como Benjamín, Alevín, Infantil, Cadete, etc.
+                    </p>
+
+                    <button class="btn-add" id="btn-add-categoria" type="button">
+                        + Añadir categoría
+                    </button>
+                </div>
+
+                <div id="categorias-admin-lista">
+                    <!-- Categorías generadas con JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTIDOS -->
+        <section class="admin-section" id="tab-partidos">
+            <div class="edit-section">
+                <div class="edit-section-header">Partidos del torneo</div>
+
+                <div class="admin-actions">
+                    <p>
+                        Añade, modifica o elimina partidos de cualquier categoría, fase, campo y horario.
+                    </p>
+
+                    <button class="btn-add" id="btn-add-partido" type="button">
+                        + Añadir partido
+                    </button>
+                </div>
+
+                <div class="admin-filter-box">
+                    <label for="filtro-categoria-partidos">Filtrar por categoría</label>
+
+                    <select id="filtro-categoria-partidos">
+                        <option value="">Todas las categorías</option>
+                    </select>
+                </div>
+
+                <div id="partidos-admin-lista">
+                    <!-- Partidos generados con JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PATROCINADORES -->
+        <section class="admin-section" id="tab-patrocinadores">
+            <div class="edit-section">
+                <div class="edit-section-header">Patrocinadores</div>
+
+                <div class="admin-actions">
+                    <p>
+                        Añade, modifica, oculta o elimina patrocinadores. Puedes usar un icono temporal o una ruta de
+                        logo.
+                    </p>
+
+                    <button class="btn-add" id="btn-add-patrocinador" type="button">
+                        + Añadir patrocinador
+                    </button>
+                </div>
+
+                <div id="patrocinadores-admin-lista">
+                    <!-- Patrocinadores generados con JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SORTEOS -->
+        <section class="admin-section" id="tab-sorteos">
+            <div class="edit-section">
+                <div class="edit-section-header">Sorteos y actividades</div>
+
+                <div class="admin-actions">
+                    <p>
+                        Añade, modifica, oculta o elimina sorteos, rifas, premios o actividades del torneo.
+                    </p>
+
+                    <button class="btn-add" id="btn-add-sorteo" type="button">
+                        + Añadir sorteo
+                    </button>
+                </div>
+
+                <div id="sorteos-admin-lista">
+                    <!-- Sorteos generados con JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <button class="save-btn" id="btn-save">Guardar cambios</button>
+
+        <div class="save-success" id="save-success">
+            Cambios guardados correctamente.
+        </div>
+
+    </main>
+
+    <footer>
+        <strong>Panel de administración</strong><br>
+        <span>Gestión privada del torneo</span>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
