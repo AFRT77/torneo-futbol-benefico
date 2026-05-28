@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "servidor.js",
   "scripts": {
-  "start": "node servidor.js",
-  "dev": "nodemon servidor.js",
-  "seed": "node scripts/insertarDatosIniciales.js"
-},
+    "start": "node servidor.js",
+    "dev": "nodemon servidor.js",
+    "seed": "node scripts/insertarDatosIniciales.js",
+    "test": "node --test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
