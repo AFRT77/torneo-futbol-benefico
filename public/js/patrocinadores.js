@@ -38,6 +38,21 @@ async function cargarDatos() {
 }
 
 function pintarDatosGenerales() {
+    const headerLogo = document.querySelector(".header-logo");
+
+    if (headerLogo) {
+        headerLogo.innerHTML = "";
+
+        if (torneo.logo && torneo.logo.trim() !== "") {
+            const imagenLogo = document.createElement("img");
+            imagenLogo.src = torneo.logo;
+            imagenLogo.alt = torneo.nombreHeader || "Logo del torneo";
+            headerLogo.appendChild(imagenLogo);
+        } else {
+            headerLogo.textContent = "⚽";
+        }
+    }
+
     document.getElementById("header-titulo").innerHTML =
         torneo.nombreHeader + " <span>" + torneo.nombreDestacado + "</span>";
 
