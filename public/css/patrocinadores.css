@@ -195,3 +195,10 @@
         padding: 22px 16px;
     }
 }
+
+.header-logo img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+}

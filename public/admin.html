@@ -23,7 +23,7 @@
 
             <div class="header-titles">
                 <h1>PANEL <span>ADMIN</span></h1>
-                <p>Gestión reutilizable del torneo</p>
+                <p>Gestión del torneo</p>
             </div>
 
             <div class="header-date">
@@ -60,6 +60,7 @@
 
         <section class="admin-tabs">
             <button class="admin-tab active" data-tab="general">Datos generales</button>
+            <button class="admin-tab" data-tab="equipos">Equipos</button>
             <button class="admin-tab" data-tab="categorias">Categorías</button>
             <button class="admin-tab" data-tab="partidos">Partidos</button>
             <button class="admin-tab" data-tab="patrocinadores">Patrocinadores</button>
@@ -113,7 +114,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Mes</label>
+                        <label>Mes y Año</label>
                         <input type="text" id="mes">
                     </div>
 
@@ -146,6 +147,34 @@
                         <label>Imagen principal</label>
                         <input type="text" id="imagenPrincipal" placeholder="imagenes/general/cartel.png">
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EQUIPOS -->
+        <section class="admin-section" id="tab-equipos">
+            <div class="edit-section">
+                <div class="edit-section-header">Equipos participantes</div>
+
+                <div class="admin-actions">
+                    <p>
+                        Añade, modifica, oculta o elimina equipos. Puedes usar un icono temporal o una ruta de logo.
+                    </p>
+
+                    <button class="btn-add" id="btn-add-equipo" type="button">
+                        + Añadir equipo
+                    </button>
+                </div>
+
+                <div class="admin-help-box">
+                    <strong>Ruta de logo:</strong>
+                    si tienes una imagen en <code>public/imagenes/equipos/</code>, escribe algo como:
+                    <br>
+                    <code>imagenes/equipos/san-roque.png</code>
+                </div>
+
+                <div id="equipos-admin-lista">
+                    <!-- Equipos generados con JavaScript -->
                 </div>
             </div>
         </section>

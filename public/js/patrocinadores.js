@@ -75,11 +75,7 @@ function pintarMenu() {
         enlace.appendChild(texto);
 
         const span = document.createElement("span");
-        span.className = "nav-cat";
-
-        if (categoria.color === "alevin") {
-            span.className = "nav-cat alevin";
-        }
+        span.className = "nav-cat " + (categoria.color || "benjamin");
 
         span.textContent = categoria.nombre;
         enlace.appendChild(span);
@@ -177,7 +173,7 @@ function crearTarjetaPatrocinador(patrocinador) {
 
     if (patrocinador.enlace && patrocinador.enlace.trim() !== "") {
         const enlace = document.createElement("a");
-        enlace.href = patrocinador.enlace;
+        enlace.href = prepararEnlace(patrocinador.enlace);
         enlace.target = "_blank";
         enlace.rel = "noopener noreferrer";
         enlace.textContent = "Ver más";
@@ -185,6 +181,19 @@ function crearTarjetaPatrocinador(patrocinador) {
     }
 
     return article;
+}
+
+function prepararEnlace(enlace) {
+    let enlaceLimpio = enlace.trim();
+
+    if (
+        enlaceLimpio.startsWith("http://") ||
+        enlaceLimpio.startsWith("https://")
+    ) {
+        return enlaceLimpio;
+    }
+
+    return "https://" + enlaceLimpio;
 }
 
 function mostrarError() {

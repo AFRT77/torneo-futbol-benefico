@@ -1,5 +1,6 @@
 let torneo = null;
 let categorias = [];
+let equipos = [];
 let sorteos = [];
 
 document.addEventListener("DOMContentLoaded", iniciar);
@@ -28,6 +29,9 @@ async function cargarDatos() {
         const respuestaCategorias = await fetch("/api/categorias");
         categorias = await respuestaCategorias.json();
 
+        const respuestaEquipos = await fetch("/api/equipos");
+        equipos = await respuestaEquipos.json();
+
         const respuestaSorteos = await fetch("/api/sorteos");
         sorteos = await respuestaSorteos.json();
 
@@ -37,12 +41,25 @@ async function cargarDatos() {
 
         torneo = null;
         categorias = [];
+        equipos = [];
         sorteos = [];
     }
 }
 
 function pintarDatosGenerales() {
     document.title = torneo.nombreHeader + " " + torneo.nombreDestacado;
+
+    const headerLogo = document.getElementById("header-logo");
+    headerLogo.innerHTML = "";
+
+    if (torneo.logo && torneo.logo.trim() !== "") {
+        const imagenLogo = document.createElement("img");
+        imagenLogo.src = torneo.logo;
+        imagenLogo.alt = torneo.nombreHeader || "Logo del torneo";
+        headerLogo.appendChild(imagenLogo);
+    } else {
+        headerLogo.textContent = "⚽";
+    }
 
     document.getElementById("header-titulo").innerHTML =
         torneo.nombreHeader + " <span>" + torneo.nombreDestacado + "</span>";
@@ -77,11 +94,7 @@ function pintarMenu() {
         enlace.appendChild(texto);
 
         const span = document.createElement("span");
-        span.className = "nav-cat";
-
-        if (categoria.color === "alevin") {
-            span.className = "nav-cat alevin";
-        }
+        span.className = "nav-cat " + (categoria.color || "benjamin");
 
         span.textContent = categoria.nombre;
         enlace.appendChild(span);
@@ -264,56 +277,40 @@ function pintarEquipos() {
     const contenedor = document.getElementById("equipos-container");
     contenedor.innerHTML = "";
 
-    const equipos = obtenerEquiposUnicos();
-
     if (equipos.length === 0) {
         contenedor.innerHTML = "<p>No hay equipos añadidos.</p>";
         return;
     }
 
     for (let i = 0; i < equipos.length; i++) {
-        const tarjeta = crearTarjetaEquipo(equipos[i], i);
-        contenedor.appendChild(tarjeta);
-    }
-}
+        const equipo = equipos[i];
 
-function obtenerEquiposUnicos() {
-    const equipos = [];
-
-    for (let i = 0; i < categorias.length; i++) {
-        const categoria = categorias[i];
-
-        if (categoria.grupos) {
-            for (let j = 0; j < categoria.grupos.length; j++) {
-                const grupo = categoria.grupos[j];
-
-                for (let k = 0; k < grupo.equipos.length; k++) {
-                    const equipo = grupo.equipos[k];
-
-                    if (!equipos.includes(equipo)) {
-                        equipos.push(equipo);
-                    }
-                }
-            }
+        if (equipo.visible !== false) {
+            const tarjeta = crearTarjetaEquipo(equipo);
+            contenedor.appendChild(tarjeta);
         }
     }
-
-    return equipos;
 }
 
-function crearTarjetaEquipo(nombre, indice) {
-    const iconos = ["🛡", "⭐", "🏛", "⚡", "🔵", "🌟", "🔴", "💪", "⚽", "🏆"];
-
+function crearTarjetaEquipo(equipo) {
     const article = document.createElement("article");
     article.className = "team-card";
 
     const logo = document.createElement("div");
     logo.className = "team-logo";
-    logo.textContent = iconos[indice % iconos.length];
+
+    if (equipo.logo && equipo.logo.trim() !== "") {
+        const imagen = document.createElement("img");
+        imagen.src = equipo.logo;
+        imagen.alt = equipo.nombre;
+        logo.appendChild(imagen);
+    } else {
+        logo.textContent = equipo.icono || "⚽";
+    }
 
     const nombreEquipo = document.createElement("div");
     nombreEquipo.className = "team-name";
-    nombreEquipo.textContent = nombre;
+    nombreEquipo.textContent = equipo.nombre;
 
     article.appendChild(logo);
     article.appendChild(nombreEquipo);
@@ -332,8 +329,11 @@ function pintarSorteos() {
 
     for (let i = 0; i < sorteos.length; i++) {
         const sorteo = sorteos[i];
-        const tarjeta = crearTarjetaSorteo(sorteo);
-        contenedor.appendChild(tarjeta);
+
+        if (sorteo.visible !== false) {
+            const tarjeta = crearTarjetaSorteo(sorteo);
+            contenedor.appendChild(tarjeta);
+        }
     }
 }
 

@@ -9,6 +9,8 @@ const rutasCategorias = require("./rutas/categorias");
 const rutasPartidos = require("./rutas/partidos");
 const rutasPatrocinadores = require("./rutas/patrocinadores");
 const rutasSorteos = require("./rutas/sorteos");
+const rutasEquipos = require("./rutas/equipos");
+const rutasUploads = require("./rutas/uploads");
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use("/api/categorias", rutasCategorias);
 app.use("/api/partidos", rutasPartidos);
 app.use("/api/patrocinadores", rutasPatrocinadores);
 app.use("/api/sorteos", rutasSorteos);
+app.use("/api/equipos", rutasEquipos);
+app.use("/api/uploads", rutasUploads);
 
 const PORT = process.env.PORT || 3000;
 

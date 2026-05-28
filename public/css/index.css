@@ -214,6 +214,12 @@
     gap: 12px;
 }
 
+.team-logo img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
 .team-card {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -361,4 +367,119 @@
     .sorteos-grid {
         grid-template-columns: repeat(5, 1fr);
     }
+}
+
+.header-logo img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+}
+
+.cat-card.dorado {
+    background: linear-gradient(135deg, #92400e, #f59e0b);
+    border-color: rgba(245, 158, 11, 0.45);
+}
+
+.cat-card.verde {
+    background: linear-gradient(135deg, #14532d, #16a34a);
+    border-color: rgba(34, 197, 94, 0.45);
+}
+
+.cat-card.morado {
+    background: linear-gradient(135deg, #581c87, #9333ea);
+    border-color: rgba(168, 85, 247, 0.45);
+}
+
+.cat-card.naranja {
+    background: linear-gradient(135deg, #7c2d12, #ea580c);
+    border-color: rgba(251, 146, 60, 0.45);
+}
+
+.dorado-color {
+    color: #fcd34d;
+}
+
+.verde-color {
+    color: #86efac;
+}
+
+.morado-color {
+    color: #d8b4fe;
+}
+
+.naranja-color {
+    color: #fdba74;
+}
+
+.bracket-badge.dorado {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    color: #fcd34d;
+}
+
+.bracket-badge.verde {
+    background: rgba(22, 163, 74, 0.2);
+    border: 1px solid rgba(22, 163, 74, 0.5);
+    color: #86efac;
+}
+
+.bracket-badge.morado {
+    background: rgba(147, 51, 234, 0.2);
+    border: 1px solid rgba(147, 51, 234, 0.5);
+    color: #d8b4fe;
+}
+
+.bracket-badge.naranja {
+    background: rgba(234, 88, 12, 0.2);
+    border: 1px solid rgba(234, 88, 12, 0.5);
+    color: #fdba74;
+}
+
+.sorteo-admin-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* COLORES EXTRA PARA CATEGORÍAS */
+
+.cat-card.dorado {
+    background: linear-gradient(135deg, #92400e, #f59e0b);
+    border-color: rgba(245, 158, 11, 0.45);
+    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25);
+}
+
+.cat-card.verde {
+    background: linear-gradient(135deg, #14532d, #16a34a);
+    border-color: rgba(34, 197, 94, 0.45);
+    box-shadow: 0 8px 30px rgba(34, 197, 94, 0.25);
+}
+
+.cat-card.morado {
+    background: linear-gradient(135deg, #581c87, #9333ea);
+    border-color: rgba(168, 85, 247, 0.45);
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.25);
+}
+
+.cat-card.naranja {
+    background: linear-gradient(135deg, #7c2d12, #ea580c);
+    border-color: rgba(251, 146, 60, 0.45);
+    box-shadow: 0 8px 30px rgba(251, 146, 60, 0.25);
+}
+
+.dorado-color {
+    color: #fcd34d;
+}
+
+.verde-color {
+    color: #86efac;
+}
+
+.morado-color {
+    color: #d8b4fe;
+}
+
+.naranja-color {
+    color: #fdba74;
 }

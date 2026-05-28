@@ -93,3 +93,10 @@
         font-size: 38px;
     }
 }
+
+.header-logo img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+}

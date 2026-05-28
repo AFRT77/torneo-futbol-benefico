@@ -60,6 +60,20 @@ function obtenerCategoriaDeUrl() {
 }
 
 function pintarDatosGenerales() {
+    const headerLogo = document.getElementById("header-logo");
+
+    if (headerLogo) {
+        headerLogo.innerHTML = "";
+
+        if (torneo.logo && torneo.logo.trim() !== "") {
+            const imagenLogo = document.createElement("img");
+            imagenLogo.src = torneo.logo;
+            imagenLogo.alt = torneo.nombreHeader || "Logo del torneo";
+            headerLogo.appendChild(imagenLogo);
+        } else {
+            headerLogo.textContent = "⚽";
+        }
+    }
     document.getElementById("header-titulo").innerHTML =
         torneo.nombreHeader + " <span>" + torneo.nombreDestacado + "</span>";
 
@@ -87,6 +101,10 @@ function pintarMenu() {
     for (let i = 0; i < categorias.length; i++) {
         const categoria = categorias[i];
 
+        if (categoria.visible === false) {
+            continue;
+        }
+
         const activo = categoria.slug === categoriaSlug;
 
         const enlace = document.createElement("a");
@@ -101,11 +119,7 @@ function pintarMenu() {
         enlace.appendChild(texto);
 
         const span = document.createElement("span");
-        span.className = "nav-cat";
-
-        if (categoria.color === "alevin") {
-            span.className = "nav-cat alevin";
-        }
+        span.className = "nav-cat " + (categoria.color || "benjamin");
 
         span.textContent = categoria.nombre;
         enlace.appendChild(span);
@@ -142,14 +156,14 @@ function pintarCategoria() {
 
     const titulo = document.getElementById("categoria-titulo");
     titulo.textContent = "CATEGORÍA " + categoriaActual.nombre.toUpperCase();
-    titulo.className = categoriaActual.color + "-color";
+    titulo.className = (categoriaActual.color || "benjamin") + "-color";
 
     document.getElementById("categoria-subtitulo").textContent =
         torneo.nombreHeader + " " + torneo.nombreDestacado + " · " + torneo.club + " · " + torneo.fechaTexto;
 
     const horario = document.getElementById("categoria-horario");
     horario.textContent = categoriaActual.horario;
-    horario.className = "bracket-badge " + categoriaActual.color;
+    horario.className = "bracket-badge " + (categoriaActual.color || "benjamin");
 
     pintarEquipos();
     pintarGrupos();

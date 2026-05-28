@@ -1,8 +1,19 @@
 let torneoActual = null;
+let equiposAdmin = [];
 let categoriasAdmin = [];
 let partidosAdmin = [];
 let patrocinadoresAdmin = [];
 let sorteosAdmin = [];
+let timeoutMensaje = null;
+
+const estilosCategorias = [
+    { valor: "benjamin", texto: "Azul" },
+    { valor: "alevin", texto: "Rojo" },
+    { valor: "dorado", texto: "Dorado" },
+    { valor: "verde", texto: "Verde" },
+    { valor: "morado", texto: "Morado" },
+    { valor: "naranja", texto: "Naranja" }
+];
 
 document.addEventListener("DOMContentLoaded", iniciarAdmin);
 
@@ -14,10 +25,15 @@ async function iniciarAdmin() {
     prepararBotones();
 
     await cargarDatosGenerales();
+    prepararSubidasDatosGenerales();
+
+    await cargarEquiposAdmin();
     await cargarCategoriasAdmin();
     await cargarPartidosAdmin();
     await cargarPatrocinadoresAdmin();
     await cargarSorteosAdmin();
+
+    pintarAdminDinamico();
 }
 
 function protegerPaginaAdmin() {
@@ -80,6 +96,8 @@ function prepararGuardar() {
 
         if (tabActiva === "general") {
             await guardarDatosGenerales();
+        } else if (tabActiva === "equipos") {
+            await guardarEquipos();
         } else if (tabActiva === "categorias") {
             await guardarCategorias();
         } else if (tabActiva === "partidos") {
@@ -95,6 +113,15 @@ function prepararGuardar() {
 }
 
 function prepararBotones() {
+
+    const botonAddEquipo = document.getElementById("btn-add-equipo");
+
+    if (botonAddEquipo) {
+        botonAddEquipo.addEventListener("click", function () {
+            agregarEquipoTemporal();
+        });
+    }
+
     const botonAddCategoria = document.getElementById("btn-add-categoria");
 
     if (botonAddCategoria) {
@@ -136,6 +163,211 @@ function prepararBotones() {
     }
 }
 
+/* ADMIN DINÁMICO */
+
+function pintarAdminDinamico() {
+    pintarCabeceraAdmin();
+    pintarMenuAdmin();
+}
+
+function pintarCabeceraAdmin() {
+    if (torneoActual === null) {
+        return;
+    }
+
+    const headerLogo = document.querySelector(".header-logo");
+
+    if (headerLogo) {
+        headerLogo.innerHTML = "";
+
+        if (torneoActual.logo && torneoActual.logo.trim() !== "") {
+            const imagen = document.createElement("img");
+            imagen.src = torneoActual.logo;
+            imagen.alt = torneoActual.nombreHeader || "Logo";
+            headerLogo.appendChild(imagen);
+        } else {
+            headerLogo.textContent = "⚽";
+        }
+    }
+
+    const titulo = document.querySelector(".header-titles h1");
+
+    if (titulo) {
+        titulo.innerHTML = "PANEL <span>ADMIN</span>";
+    }
+
+    const subtitulo = document.querySelector(".header-titles p");
+
+    if (subtitulo) {
+        subtitulo.textContent = "Gestión de " + torneoActual.nombreHeader + " " + torneoActual.nombreDestacado;
+    }
+
+    const dia = document.querySelector(".header-date .day");
+
+    if (dia) {
+        dia.textContent = "⚙";
+    }
+
+    const mes = document.querySelector(".header-date .month");
+
+    if (mes) {
+        mes.textContent = "Admin";
+    }
+}
+
+function pintarMenuAdmin() {
+    const navMenu = document.querySelector("nav .nav-inner");
+
+    if (!navMenu) {
+        return;
+    }
+
+    navMenu.innerHTML = "";
+
+    const enlaceInicio = crearEnlaceMenuAdmin("🏠 Inicio", "index.html", false, false);
+    navMenu.appendChild(enlaceInicio);
+
+    for (let i = 0; i < categoriasAdmin.length; i++) {
+        const categoria = categoriasAdmin[i];
+
+        if (categoria.visible === false) {
+            continue;
+        }
+
+        const enlace = document.createElement("a");
+        enlace.href = "cuadrante.html?categoria=" + categoria.slug;
+        enlace.className = "nav-btn";
+
+        const texto = document.createTextNode("Cuadrante ");
+        enlace.appendChild(texto);
+
+        const span = document.createElement("span");
+        span.className = "nav-cat " + (categoria.color || "benjamin");
+
+        span.textContent = categoria.nombre;
+        enlace.appendChild(span);
+
+        navMenu.appendChild(enlace);
+    }
+
+    const enlacePatrocinadores = crearEnlaceMenuAdmin("🤝 Patrocinadores", "patrocinadores.html", false, false);
+    navMenu.appendChild(enlacePatrocinadores);
+
+    const enlaceAdmin = crearEnlaceMenuAdmin("⚙ Admin", "admin.html", true, true);
+    navMenu.appendChild(enlaceAdmin);
+}
+
+function crearEnlaceMenuAdmin(texto, href, activo, admin) {
+    const enlace = document.createElement("a");
+    enlace.href = href;
+
+    if (admin) {
+        enlace.className = "nav-admin-btn";
+    } else {
+        enlace.className = "nav-btn";
+    }
+
+    if (activo) {
+        enlace.className += " active";
+    }
+
+    enlace.textContent = texto;
+
+    return enlace;
+}
+
+/* SUBIDA DE IMÁGENES */
+
+async function subirImagen(input, carpeta) {
+    const token = localStorage.getItem("tokenAdmin");
+
+    if (!input.files || input.files.length === 0) {
+        mostrarMensaje("Selecciona una imagen primero.", "error");
+        return null;
+    }
+
+    const formData = new FormData();
+    formData.append("imagen", input.files[0]);
+    formData.append("carpeta", carpeta);
+
+    try {
+        mostrarMensaje("Subiendo imagen...", "success");
+
+        const respuesta = await fetch("/api/uploads/imagen", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            body: formData
+        });
+
+        const resultado = await respuesta.json();
+
+        if (respuesta.ok) {
+            mostrarMensaje("Imagen subida correctamente.", "success");
+            return resultado.url;
+        } else {
+            mostrarMensaje(resultado.mensaje || "No se ha podido subir la imagen.", "error");
+            return null;
+        }
+
+    } catch (error) {
+        mostrarMensaje("Error al subir la imagen.", "error");
+        return null;
+    }
+}
+
+function prepararSubidasDatosGenerales() {
+    prepararSubidaCampoTexto(
+        "logo",
+        "Subir logo principal desde el móvil",
+        "Selecciona una imagen y se guardará automáticamente.",
+        "general"
+    );
+
+    prepararSubidaCampoTexto(
+        "imagenPrincipal",
+        "Subir imagen principal o cartel",
+        "Selecciona una imagen y se guardará automáticamente.",
+        "general"
+    );
+}
+
+function prepararSubidaCampoTexto(idCampo, texto, ayuda, carpeta) {
+    const inputTexto = document.getElementById(idCampo);
+
+    if (!inputTexto) {
+        return;
+    }
+
+    if (document.getElementById("upload-" + idCampo)) {
+        return;
+    }
+
+    const caja = document.createElement("div");
+    caja.className = "upload-admin-box";
+    caja.id = "upload-" + idCampo;
+
+    caja.innerHTML = `
+        <label>${texto}</label>
+        <input type="file" accept="image/*">
+        <small>${ayuda}</small>
+    `;
+
+    const inputFile = caja.querySelector("input");
+
+    inputFile.addEventListener("change", async function () {
+        const url = await subirImagen(this, carpeta);
+
+        if (url) {
+            inputTexto.value = url;
+            await guardarDatosGenerales(false);
+        }
+    });
+
+    inputTexto.parentElement.appendChild(caja);
+}
+
 /* DATOS GENERALES */
 
 async function cargarDatosGenerales() {
@@ -166,7 +398,7 @@ async function cargarDatosGenerales() {
     }
 }
 
-async function guardarDatosGenerales() {
+async function guardarDatosGenerales(mostrarAviso = true) {
     const token = localStorage.getItem("tokenAdmin");
 
     const datos = {
@@ -201,9 +433,242 @@ async function guardarDatosGenerales() {
         const resultado = await respuesta.json();
 
         if (respuesta.ok) {
-            mostrarMensaje("Datos generales guardados correctamente.", "success");
+            if (mostrarAviso) {
+                mostrarMensaje("Datos generales guardados correctamente.", "success");
+            }
         } else {
             mostrarMensaje(resultado.mensaje || "No se han podido guardar los datos.", "error");
+        }
+
+    } catch (error) {
+        mostrarMensaje("Error al conectar con el servidor.", "error");
+    }
+}
+
+/* EQUIPOS */
+
+async function cargarEquiposAdmin() {
+    const token = localStorage.getItem("tokenAdmin");
+
+    try {
+        const respuesta = await fetch("/api/equipos/admin/todos", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        equiposAdmin = await respuesta.json();
+
+        pintarEquiposAdmin();
+
+    } catch (error) {
+        mostrarMensaje("No se han podido cargar los equipos.", "error");
+    }
+}
+
+function pintarEquiposAdmin() {
+    const contenedor = document.getElementById("equipos-admin-lista");
+
+    if (!contenedor) {
+        return;
+    }
+
+    contenedor.innerHTML = "";
+
+    if (equiposAdmin.length === 0) {
+        contenedor.innerHTML = `
+            <div class="empty-admin-box">
+                No hay equipos añadidos.
+            </div>
+        `;
+        return;
+    }
+
+    for (let i = 0; i < equiposAdmin.length; i++) {
+        const equipo = equiposAdmin[i];
+
+        const tarjeta = document.createElement("div");
+        tarjeta.className = "equipo-admin-card";
+
+        let logoHtml = equipo.icono || "⚽";
+
+        if (equipo.logo && equipo.logo.trim() !== "") {
+            logoHtml = `<img src="${equipo.logo}" alt="${equipo.nombre || "Equipo"}">`;
+        }
+
+        tarjeta.innerHTML = `
+            <div class="equipo-admin-title">
+                <div class="equipo-admin-logo">
+                    ${logoHtml}
+                </div>
+
+                <div>
+                    <strong>${equipo.nombre || "Nuevo equipo"}</strong>
+                    <span>${equipo.logo || "Sin logo"}</span>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Icono</label>
+                    <input type="text" value="${equipo.icono || ""}" data-campo="icono" data-index="${i}">
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" value="${equipo.nombre || ""}" data-campo="nombre" data-index="${i}">
+                </div>
+
+                <div class="form-group">
+                    <label>Orden</label>
+                    <input type="number" value="${equipo.orden || 0}" data-campo="orden" data-index="${i}">
+                </div>
+
+                <div class="form-group">
+                    <label>Visible</label>
+                    <select data-campo="visible" data-index="${i}">
+                        <option value="true" ${equipo.visible === true ? "selected" : ""}>Sí</option>
+                        <option value="false" ${equipo.visible === false ? "selected" : ""}>No</option>
+                    </select>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label>Logo</label>
+                    <input type="text" value="${equipo.logo || ""}" data-campo="logo" data-index="${i}" placeholder="URL del logo">
+
+                    <div class="upload-admin-box">
+                        <label>Subir logo desde el móvil</label>
+                        <input type="file" accept="image/*" data-upload-equipo="${i}">
+                        <small>Selecciona una imagen y se guardará automáticamente.</small>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-mini-danger btn-eliminar-equipo" type="button" data-index="${i}">
+                Eliminar equipo
+            </button>
+        `;
+
+        contenedor.appendChild(tarjeta);
+    }
+
+    prepararInputsEquipos();
+}
+
+function prepararInputsEquipos() {
+    const inputs = document.querySelectorAll("#equipos-admin-lista input, #equipos-admin-lista select");
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("input", actualizarEquipoDesdeInput);
+        inputs[i].addEventListener("change", actualizarEquipoDesdeInput);
+    }
+
+    const inputsUpload = document.querySelectorAll("#equipos-admin-lista input[data-upload-equipo]");
+
+    for (let i = 0; i < inputsUpload.length; i++) {
+        inputsUpload[i].addEventListener("change", async function () {
+            const index = Number(this.dataset.uploadEquipo);
+
+            const url = await subirImagen(this, "equipos");
+
+            if (url) {
+                equiposAdmin[index].logo = url;
+                await guardarEquipos(false);
+                pintarEquiposAdmin();
+            }
+        });
+    }
+
+    const botonesEliminar = document.querySelectorAll(".btn-eliminar-equipo");
+
+    for (let i = 0; i < botonesEliminar.length; i++) {
+        botonesEliminar[i].addEventListener("click", function () {
+            const index = Number(this.dataset.index);
+            eliminarEquipo(index);
+        });
+    }
+}
+
+function actualizarEquipoDesdeInput() {
+    const index = Number(this.dataset.index);
+    const campo = this.dataset.campo;
+    let valor = this.value;
+
+    if (campo === "orden") {
+        valor = Number(valor);
+    }
+
+    if (campo === "visible") {
+        valor = valor === "true";
+    }
+
+    equiposAdmin[index][campo] = valor;
+}
+
+function agregarEquipoTemporal() {
+    equiposAdmin.push({
+        nombre: "Nuevo equipo",
+        logo: "",
+        icono: "⚽",
+        orden: equiposAdmin.length + 1,
+        visible: true
+    });
+
+    pintarEquiposAdmin();
+}
+
+async function eliminarEquipo(index) {
+    if (!confirm("¿Seguro que quieres eliminar este equipo?")) {
+        return;
+    }
+
+    equiposAdmin.splice(index, 1);
+    pintarEquiposAdmin();
+
+    await guardarEquipos(false);
+}
+
+async function guardarEquipos(mostrarAviso = true) {
+    const token = localStorage.getItem("tokenAdmin");
+
+    const equiposLimpios = [];
+
+    for (let i = 0; i < equiposAdmin.length; i++) {
+        const equipo = equiposAdmin[i];
+
+        if (equipo.nombre && equipo.nombre.trim() !== "") {
+            equiposLimpios.push({
+                nombre: equipo.nombre,
+                logo: equipo.logo || "",
+                icono: equipo.icono || "⚽",
+                orden: Number(equipo.orden) || i + 1,
+                visible: equipo.visible !== false
+            });
+        }
+    }
+
+    try {
+        const respuesta = await fetch("/api/equipos/admin/reemplazar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+                equipos: equiposLimpios
+            })
+        });
+
+        const resultado = await respuesta.json();
+
+        if (respuesta.ok) {
+            if (mostrarAviso) {
+                mostrarMensaje("Equipos guardados correctamente.", "success");
+            }
+
+            await cargarEquiposAdmin();
+        } else {
+            mostrarMensaje(resultado.mensaje || "No se han podido guardar los equipos.", "error");
         }
 
     } catch (error) {
@@ -260,13 +725,10 @@ function pintarCategoriasAdmin() {
         </div>
 
         <div class="form-group">
-          <label>Slug</label>
-          <input type="text" value="${categoria.slug || ""}" data-campo="slug" data-index="${i}">
-        </div>
-
-        <div class="form-group">
-          <label>Color</label>
-          <input type="text" value="${categoria.color || ""}" data-campo="color" data-index="${i}">
+            <label>Estilo visual</label>
+            <select data-campo="color" data-index="${i}">
+                ${crearOptionsEstilos(categoria.color)}
+            </select>
         </div>
 
         <div class="form-group">
@@ -310,6 +772,18 @@ function pintarCategoriasAdmin() {
     prepararInputsCategorias();
 }
 
+function crearOptionsEstilos(valorActual) {
+    let html = "";
+
+    for (let i = 0; i < estilosCategorias.length; i++) {
+        const estilo = estilosCategorias[i];
+
+        html += `<option value="${estilo.valor}" ${valorActual === estilo.valor ? "selected" : ""}>${estilo.texto}</option>`;
+    }
+
+    return html;
+}
+
 function prepararInputsCategorias() {
     const inputs = document.querySelectorAll("#categorias-admin-lista input, #categorias-admin-lista textarea, #categorias-admin-lista select");
 
@@ -347,7 +821,11 @@ function actualizarCategoriaDesdeInput() {
 
     categoriasAdmin[index][campo] = valor;
 
-    if (campo === "nombre" || campo === "slug") {
+    if (campo === "nombre") {
+        if (!categoriasAdmin[index]._id) {
+            categoriasAdmin[index].slug = generarSlug(valor);
+        }
+
         pintarFiltroCategoriasPartidos();
     }
 }
@@ -413,10 +891,51 @@ function convertirTextoAGrupos(texto) {
     return grupos;
 }
 
+function generarSlug(texto) {
+    return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ñ/g, "n")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+}
+
+function generarSlugUnico(nombre, indexActual) {
+    let slugBase = generarSlug(nombre);
+
+    if (slugBase === "") {
+        slugBase = "categoria";
+    }
+
+    let slugFinal = slugBase;
+    let contador = 2;
+    let existe = true;
+
+    while (existe) {
+        existe = false;
+
+        for (let i = 0; i < categoriasAdmin.length; i++) {
+            if (i !== indexActual && categoriasAdmin[i].slug === slugFinal) {
+                existe = true;
+            }
+        }
+
+        if (existe) {
+            slugFinal = slugBase + "-" + contador;
+            contador++;
+        }
+    }
+
+    return slugFinal;
+}
+
 function agregarCategoriaTemporal() {
+    const nombre = "Nueva categoría";
+
     categoriasAdmin.push({
-        nombre: "Nueva categoría",
-        slug: "nueva-categoria",
+        nombre: nombre,
+        slug: generarSlugUnico(nombre, categoriasAdmin.length),
         color: "benjamin",
         horario: "",
         trofeos: "",
@@ -480,6 +999,10 @@ async function guardarCategorias() {
     try {
         for (let i = 0; i < categoriasAdmin.length; i++) {
             const categoria = categoriasAdmin[i];
+
+            if (!categoria._id) {
+                categoria.slug = generarSlugUnico(categoria.nombre, i);
+            }
 
             if (categoria._id) {
                 await fetch("/api/categorias/" + categoria._id, {
@@ -717,10 +1240,19 @@ function actualizarPartidoDesdeInput() {
 }
 
 function agregarPartidoTemporal() {
-    let categoriaPorDefecto = "benjamin";
+    let categoriaPorDefecto = "";
 
-    if (categoriasAdmin.length > 0) {
+    const filtro = document.getElementById("filtro-categoria-partidos");
+
+    if (filtro && filtro.value !== "") {
+        categoriaPorDefecto = filtro.value;
+    } else if (categoriasAdmin.length > 0) {
         categoriaPorDefecto = categoriasAdmin[0].slug;
+    }
+
+    if (categoriaPorDefecto === "") {
+        mostrarMensaje("Primero debes crear una categoría.", "error");
+        return;
     }
 
     partidosAdmin.push({
@@ -736,6 +1268,10 @@ function agregarPartidoTemporal() {
         orden: partidosAdmin.length + 1,
         visible: true
     });
+
+    if (filtro) {
+        filtro.value = categoriaPorDefecto;
+    }
 
     pintarPartidosAdmin();
 }
@@ -856,13 +1392,19 @@ function pintarPatrocinadoresAdmin() {
     for (let i = 0; i < patrocinadoresAdmin.length; i++) {
         const patrocinador = patrocinadoresAdmin[i];
 
+        let logoPatrocinadorHtml = patrocinador.icono || "🤝";
+
+        if (patrocinador.logo && patrocinador.logo.trim() !== "") {
+            logoPatrocinadorHtml = `<img src="${patrocinador.logo}" alt="${patrocinador.nombre || "Patrocinador"}">`;
+        }
+
         const tarjeta = document.createElement("div");
         tarjeta.className = "patrocinador-admin-card";
 
         tarjeta.innerHTML = `
       <div class="patrocinador-admin-title">
         <div class="patrocinador-admin-icon">
-          ${patrocinador.icono || "🤝"}
+           ${logoPatrocinadorHtml}
         </div>
 
         <div>
@@ -901,9 +1443,15 @@ function pintarPatrocinadoresAdmin() {
         </div>
 
         <div class="form-group form-group-full">
-          <label>Logo</label>
-          <input type="text" value="${patrocinador.logo || ""}" data-campo="logo" data-index="${i}" placeholder="imagenes/patrocinadores/logo.png">
-        </div>
+            <label>Logo</label>
+            <input type="text" value="${patrocinador.logo || ""}" data-campo="logo" data-index="${i}" placeholder="URL del logo">
+
+            <div class="upload-admin-box">
+                <label>Subir logo desde el móvil</label>
+                <input type="file" accept="image/*" data-upload-patrocinador="${i}">
+                <small>Selecciona una imagen y se guardará automáticamente.</small>
+            </div>
+            </div>
 
         <div class="form-group form-group-full">
           <label>Enlace</label>
@@ -928,6 +1476,22 @@ function prepararInputsPatrocinadores() {
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener("input", actualizarPatrocinadorDesdeInput);
         inputs[i].addEventListener("change", actualizarPatrocinadorDesdeInput);
+    }
+
+    const inputsUploadPatrocinadores = document.querySelectorAll("#patrocinadores-admin-lista input[data-upload-patrocinador]");
+
+    for (let i = 0; i < inputsUploadPatrocinadores.length; i++) {
+        inputsUploadPatrocinadores[i].addEventListener("change", async function () {
+            const index = Number(this.dataset.uploadPatrocinador);
+
+            const url = await subirImagen(this, "patrocinadores");
+
+            if (url) {
+                patrocinadoresAdmin[index].logo = url;
+                await guardarPatrocinadores(false);
+                pintarPatrocinadoresAdmin();
+            }
+        });
     }
 
     const botonesEliminar = document.querySelectorAll(".btn-eliminar-patrocinador");
@@ -1008,7 +1572,7 @@ async function eliminarPatrocinador(index) {
     }
 }
 
-async function guardarPatrocinadores() {
+async function guardarPatrocinadores(mostrarAviso = true) {
     const token = localStorage.getItem("tokenAdmin");
 
     try {
@@ -1036,7 +1600,10 @@ async function guardarPatrocinadores() {
             }
         }
 
-        mostrarMensaje("Patrocinadores guardados correctamente.", "success");
+        if (mostrarAviso) {
+            mostrarMensaje("Patrocinadores guardados correctamente.", "success");
+        }
+
         await cargarPatrocinadoresAdmin();
 
     } catch (error) {
@@ -1089,10 +1656,16 @@ function pintarSorteosAdmin() {
         const tarjeta = document.createElement("div");
         tarjeta.className = "sorteo-admin-card";
 
+        let imagenSorteoHtml = sorteo.icono || "🎁";
+
+        if (sorteo.imagen && sorteo.imagen.trim() !== "") {
+            imagenSorteoHtml = `<img src="${sorteo.imagen}" alt="${sorteo.titulo || "Sorteo"}">`;
+        }
+
         tarjeta.innerHTML = `
       <div class="sorteo-admin-title">
         <div class="sorteo-admin-icon">
-          ${sorteo.icono || "🎁"}
+        ${imagenSorteoHtml}
         </div>
 
         <div>
@@ -1131,8 +1704,14 @@ function pintarSorteosAdmin() {
         </div>
 
         <div class="form-group form-group-full">
-          <label>Imagen</label>
-          <input type="text" value="${sorteo.imagen || ""}" data-campo="imagen" data-index="${i}" placeholder="imagenes/general/sorteo.png">
+            <label>Imagen</label>
+            <input type="text" value="${sorteo.imagen || ""}" data-campo="imagen" data-index="${i}" placeholder="URL de la imagen">
+
+            <div class="upload-admin-box">
+                <label>Subir imagen desde el móvil</label>
+                <input type="file" accept="image/*" data-upload-sorteo="${i}">
+                <small>Selecciona una imagen y se guardará automáticamente.</small>
+            </div>
         </div>
       </div>
 
@@ -1153,6 +1732,22 @@ function prepararInputsSorteos() {
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener("input", actualizarSorteoDesdeInput);
         inputs[i].addEventListener("change", actualizarSorteoDesdeInput);
+    }
+
+    const inputsUploadSorteos = document.querySelectorAll("#sorteos-admin-lista input[data-upload-sorteo]");
+
+    for (let i = 0; i < inputsUploadSorteos.length; i++) {
+        inputsUploadSorteos[i].addEventListener("change", async function () {
+            const index = Number(this.dataset.uploadSorteo);
+
+            const url = await subirImagen(this, "sorteos");
+
+            if (url) {
+                sorteosAdmin[index].imagen = url;
+                await guardarSorteos(false);
+                pintarSorteosAdmin();
+            }
+        });
     }
 
     const botonesEliminar = document.querySelectorAll(".btn-eliminar-sorteo");
@@ -1232,7 +1827,7 @@ async function eliminarSorteo(index) {
     }
 }
 
-async function guardarSorteos() {
+async function guardarSorteos(mostrarAviso = true) {
     const token = localStorage.getItem("tokenAdmin");
 
     const sorteosLimpios = [];
@@ -1266,12 +1861,11 @@ async function guardarSorteos() {
 
         const resultado = await respuesta.json();
 
-        if (respuesta.ok) {
+        if (mostrarAviso) {
             mostrarMensaje("Sorteos guardados correctamente.", "success");
-            await cargarSorteosAdmin();
-        } else {
-            mostrarMensaje(resultado.mensaje || "No se han podido guardar los sorteos.", "error");
         }
+
+        await cargarSorteosAdmin();
 
     } catch (error) {
         mostrarMensaje("Error al conectar con el servidor.", "error");
@@ -1283,11 +1877,23 @@ async function guardarSorteos() {
 function mostrarMensaje(texto, tipo) {
     const mensaje = document.getElementById("save-success");
 
+    if (!mensaje) {
+        alert(texto);
+        return;
+    }
+
+    if (timeoutMensaje !== null) {
+        clearTimeout(timeoutMensaje);
+    }
+
     mensaje.textContent = texto;
     mensaje.className = "admin-message " + tipo;
+    mensaje.style.display = "block";
+    mensaje.style.opacity = "1";
 
-    setTimeout(function () {
+    timeoutMensaje = setTimeout(function () {
         mensaje.style.display = "none";
-        mensaje.className = "save-success";
+        mensaje.style.opacity = "0";
+        timeoutMensaje = null;
     }, 3000);
 }

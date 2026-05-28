@@ -355,3 +355,28 @@ footer span {
         line-height: 1.3;
     }
 }
+
+.header-logo img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+}
+
+/* COLORES EXTRA PARA BOTONES DEL MENÚ */
+
+.nav-cat.dorado {
+    background: #f59e0b;
+}
+
+.nav-cat.verde {
+    background: #16a34a;
+}
+
+.nav-cat.morado {
+    background: #9333ea;
+}
+
+.nav-cat.naranja {
+    background: #ea580c;
+}
