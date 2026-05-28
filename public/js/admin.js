@@ -250,7 +250,7 @@ function pintarMenuAdmin() {
         navMenu.appendChild(enlace);
     }
 
-    const enlacePatrocinadores = crearEnlaceMenuAdmin("🤝 Patrocinadores", "patrocinadores.html", false, false);
+    const enlacePatrocinadores = crearEnlaceMenuAdmin("🤝 Patrocinadores y colaboradores", "patrocinadores.html", false, false);
     navMenu.appendChild(enlacePatrocinadores);
 
     const enlaceAdmin = crearEnlaceMenuAdmin("⚙ Admin", "admin.html", true, true);

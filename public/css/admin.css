@@ -861,3 +861,71 @@
     height: 100%;
     object-fit: contain;
 }
+
+.header-logo,
+.team-logo,
+.sponsor-logo,
+.equipo-admin-logo,
+.patrocinador-admin-icon,
+.sorteo-admin-icon {
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logo img,
+.team-logo img,
+.sponsor-logo img,
+.equipo-admin-logo img,
+.patrocinador-admin-icon img,
+.sorteo-admin-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* TEMA BLANCO Y AZUL - ADMIN */
+
+.admin-top h2,
+.edit-section-header {
+    color: #ffffff;
+}
+
+.edit-section-header {
+    background: rgba(59, 130, 246, 0.16);
+    border-bottom: 1px solid rgba(147, 197, 253, 0.25);
+}
+
+.admin-tab.active {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    border-color: #60a5fa;
+    color: #ffffff;
+}
+
+.btn-add,
+.btn-primary,
+.save-btn {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    color: #ffffff;
+}
+
+.admin-help-box,
+.upload-admin-box {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(147, 197, 253, 0.25);
+    color: #dbeafe;
+}
+
+.upload-admin-box label {
+    color: #bfdbfe;
+}
+
+.equipo-admin-title strong,
+.patrocinador-admin-title strong,
+.sorteo-admin-title strong,
+.partido-admin-title strong {
+    color: #ffffff;
+}

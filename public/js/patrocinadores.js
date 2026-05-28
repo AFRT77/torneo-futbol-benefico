@@ -98,7 +98,7 @@ function pintarMenu() {
         navMenu.appendChild(enlace);
     }
 
-    const enlacePatrocinadores = crearEnlaceMenu("🤝 Patrocinadores", "patrocinadores.html", true);
+    const enlacePatrocinadores = crearEnlaceMenu("🤝 Patrocinadores y colaboradores", "patrocinadores.html", true);
     navMenu.appendChild(enlacePatrocinadores);
 
     const enlaceAdmin = document.createElement("a");

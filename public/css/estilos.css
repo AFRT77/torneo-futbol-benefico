@@ -1,15 +1,19 @@
 :root {
-    --blue-dark: #0a1628;
-    --blue-mid: #0d2244;
-    --blue-accent: #1a4a8a;
-    --blue-bright: #2563eb;
-    --red: #dc2626;
-    --red-bright: #ef4444;
-    --gold: #f59e0b;
-    --gold-light: #fcd34d;
+    --blue-dark: #071426;
+    --blue-mid: #0b2447;
+    --blue-accent: #1d4ed8;
+    --blue-bright: #3b82f6;
+
+    --red: #2563eb;
+    --red-bright: #60a5fa;
+
+    --gold: #93c5fd;
+    --gold-light: #dbeafe;
+
     --white: #ffffff;
-    --gray-light: #e2e8f0;
-    --gray: #94a3b8;
+    --gray-light: #e5efff;
+    --gray: #9fb6d8;
+
     --green: #16a34a;
 }
 
@@ -356,10 +360,28 @@ footer span {
     }
 }
 
-.header-logo img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
+.header-logo,
+.team-logo,
+.sponsor-logo,
+.equipo-admin-logo,
+.patrocinador-admin-icon,
+.sorteo-admin-icon {
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logo img,
+.team-logo img,
+.sponsor-logo img,
+.equipo-admin-logo img,
+.patrocinador-admin-icon img,
+.sorteo-admin-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
@@ -379,4 +401,41 @@ footer span {
 
 .nav-cat.naranja {
     background: #ea580c;
+}
+
+/* TEMA BLANCO Y AZUL */
+
+.header-titles h1 {
+    color: var(--white);
+}
+
+.header-titles h1 span {
+    color: var(--blue-bright);
+}
+
+.header-titles p {
+    color: var(--gray-light);
+}
+
+.header-date {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    box-shadow: 0 4px 18px rgba(59, 130, 246, 0.35);
+}
+
+.nav-btn.active {
+    color: var(--white);
+    border-bottom-color: var(--blue-bright);
+}
+
+.nav-btn:hover {
+    color: var(--white);
+}
+
+.nav-admin-btn {
+    color: var(--blue-bright);
+}
+
+.nav-admin-btn.active {
+    color: var(--white);
+    border-bottom-color: var(--blue-bright);
 }

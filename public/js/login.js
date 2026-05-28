@@ -116,7 +116,7 @@ function pintarMenuLogin() {
         navMenu.appendChild(enlace);
     }
 
-    const enlacePatrocinadores = crearEnlaceMenu("🤝 Patrocinadores", "patrocinadores.html", false, false);
+    const enlacePatrocinadores = crearEnlaceMenu("🤝 Patrocinadores y colaboradores", "patrocinadores.html", false, false);
     navMenu.appendChild(enlacePatrocinadores);
 
     const enlaceAdmin = crearEnlaceMenu("⚙ Admin", "login.html", true, true);

@@ -102,7 +102,7 @@ function pintarMenu() {
         navMenu.appendChild(enlace);
     }
 
-    const enlacePatrocinadores = crearEnlaceMenu("🤝 Patrocinadores", "patrocinadores.html", false);
+    const enlacePatrocinadores = crearEnlaceMenu("🤝 Patrocinadores y colaboradores", "patrocinadores.html", false);
     navMenu.appendChild(enlacePatrocinadores);
 
     const enlaceAdmin = document.createElement("a");
