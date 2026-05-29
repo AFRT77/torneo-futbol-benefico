@@ -227,8 +227,8 @@ function pintarMenuAdmin() {
     const enlaceInicio = crearEnlaceMenuAdmin("🏠 Inicio", "index.html", false, false);
     navMenu.appendChild(enlaceInicio);
 
-    const enlaceMonstruo = crearEnlaceMenu("🧠 El monstruo de mi cabeza", "index.html#monstruo-cabeza", false);
-    navMenu.appendChild(enlaceMonstruo);
+    const enlaceMonstruo = crearEnlaceMenuAdmin("🧠 El monstruo de mi cabeza", "index.html#monstruo-cabeza", false, false);
+navMenu.appendChild(enlaceMonstruo);
 
     for (let i = 0; i < categoriasAdmin.length; i++) {
         const categoria = categoriasAdmin[i];
@@ -1384,15 +1384,17 @@ function pintarPatrocinadoresAdmin() {
     contenedor.innerHTML = "";
 
     if (patrocinadoresAdmin.length === 0) {
-        contenedor.innerHTML = `
+    contenedor.innerHTML = `
       <div class="empty-admin-box">
         No hay patrocinadores añadidos.
       </div>
     `;
-        return;
-    }
+    return;
+}
 
-    for (let i = 0; i < patrocinadoresAdmin.length; i++) {
+const nombreClub = torneoActual && torneoActual.club ? torneoActual.club : "club organizador";
+
+for (let i = 0; i < patrocinadoresAdmin.length; i++) {
         const patrocinador = patrocinadoresAdmin[i];
 
         let logoPatrocinadorHtml = patrocinador.icono || "🤝";
@@ -1433,17 +1435,33 @@ function pintarPatrocinadoresAdmin() {
         </div>
 
         <div class="form-group">
-          <label>Orden</label>
-          <input type="number" value="${patrocinador.orden || 0}" data-campo="orden" data-index="${i}">
-        </div>
+  <label>Tipo</label>
+  <select data-campo="tipo" data-index="${i}">
+    <option value="torneo" ${patrocinador.tipo !== "club" ? "selected" : ""}>Patrocinador del torneo</option>
+    <option value="club" ${patrocinador.tipo === "club" ? "selected" : ""}>Patrocinador de ${nombreClub}</option>
+  </select>
+</div>
 
-        <div class="form-group">
-          <label>Visible</label>
-          <select data-campo="visible" data-index="${i}">
-            <option value="true" ${patrocinador.visible === true ? "selected" : ""}>Sí</option>
-            <option value="false" ${patrocinador.visible === false ? "selected" : ""}>No</option>
-          </select>
-        </div>
+<div class="form-group">
+  <label>Destacado</label>
+  <select data-campo="destacado" data-index="${i}">
+    <option value="false" ${patrocinador.destacado !== true ? "selected" : ""}>No</option>
+    <option value="true" ${patrocinador.destacado === true ? "selected" : ""}>Sí</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label>Orden</label>
+  <input type="number" value="${patrocinador.orden || 0}" data-campo="orden" data-index="${i}">
+</div>
+
+<div class="form-group">
+  <label>Visible</label>
+  <select data-campo="visible" data-index="${i}">
+    <option value="true" ${patrocinador.visible === true ? "selected" : ""}>Sí</option>
+    <option value="false" ${patrocinador.visible === false ? "selected" : ""}>No</option>
+  </select>
+</div>
 
         <div class="form-group form-group-full">
             <label>Logo</label>
@@ -1474,7 +1492,7 @@ function pintarPatrocinadoresAdmin() {
 }
 
 function prepararInputsPatrocinadores() {
-    const inputs = document.querySelectorAll("#patrocinadores-admin-lista input, #patrocinadores-admin-lista select");
+    const inputs = document.querySelectorAll("#patrocinadores-admin-lista input[data-campo], #patrocinadores-admin-lista select[data-campo]");
 
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener("input", actualizarPatrocinadorDesdeInput);
@@ -1520,6 +1538,10 @@ function actualizarPatrocinadorDesdeInput() {
         valor = valor === "true";
     }
 
+    if (campo === "destacado") {
+        valor = valor === "true";
+    }
+
     patrocinadoresAdmin[index][campo] = valor;
 }
 
@@ -1530,6 +1552,8 @@ function agregarPatrocinadorTemporal() {
         logo: "",
         icono: "🤝",
         enlace: "",
+        tipo: "torneo",
+        destacado: false,
         orden: patrocinadoresAdmin.length + 1,
         visible: true
     });
