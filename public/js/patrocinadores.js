@@ -85,6 +85,10 @@ function pintarMenu() {
     for (let i = 0; i < categorias.length; i++) {
         const categoria = categorias[i];
 
+        if (categoria.visible === false) {
+            continue;
+        }
+
         const enlace = document.createElement("a");
         enlace.href = "cuadrante.html?categoria=" + categoria.slug;
         enlace.className = "nav-btn";
@@ -129,7 +133,9 @@ function pintarPatrocinadores() {
     const contenedor = document.getElementById("sponsors-grid");
     contenedor.innerHTML = "";
 
-    const patrocinadoresValidos = [];
+    const patrocinadoresDestacados = [];
+    const patrocinadoresTorneo = [];
+    const patrocinadoresClub = [];
 
     for (let i = 0; i < patrocinadores.length; i++) {
         const patrocinador = patrocinadores[i];
@@ -139,11 +145,21 @@ function pintarPatrocinadores() {
             patrocinador.nombre.trim() !== "" &&
             patrocinador.visible !== false
         ) {
-            patrocinadoresValidos.push(patrocinador);
+            if (patrocinador.destacado === true) {
+                patrocinadoresDestacados.push(patrocinador);
+            } else if (patrocinador.tipo === "club") {
+                patrocinadoresClub.push(patrocinador);
+            } else {
+                patrocinadoresTorneo.push(patrocinador);
+            }
         }
     }
 
-    if (patrocinadoresValidos.length === 0) {
+    if (
+        patrocinadoresDestacados.length === 0 &&
+        patrocinadoresTorneo.length === 0 &&
+        patrocinadoresClub.length === 0
+    ) {
         const mensaje = document.createElement("div");
         mensaje.className = "empty-sponsors";
         mensaje.textContent = "Todavía no hay patrocinadores añadidos.";
@@ -151,16 +167,73 @@ function pintarPatrocinadores() {
         return;
     }
 
-    for (let i = 0; i < patrocinadoresValidos.length; i++) {
-        const patrocinador = patrocinadoresValidos[i];
-        const tarjeta = crearTarjetaPatrocinador(patrocinador);
-        contenedor.appendChild(tarjeta);
+    if (patrocinadoresDestacados.length > 0) {
+        const seccionDestacados = crearSeccionPatrocinadores(
+            "Patrocinador principal",
+            patrocinadoresDestacados,
+            true
+        );
+
+        contenedor.appendChild(seccionDestacados);
+    }
+
+    if (patrocinadoresTorneo.length > 0) {
+        const seccionTorneo = crearSeccionPatrocinadores(
+            "Patrocinadores del torneo",
+            patrocinadoresTorneo,
+            false
+        );
+
+        contenedor.appendChild(seccionTorneo);
+    }
+
+    if (patrocinadoresClub.length > 0) {
+        const nombreClub = torneo && torneo.club ? torneo.club : "club organizador";
+
+        const seccionClub = crearSeccionPatrocinadores(
+            "Patrocinadores de " + nombreClub,
+            patrocinadoresClub,
+            false
+        );
+
+        contenedor.appendChild(seccionClub);
     }
 }
 
-function crearTarjetaPatrocinador(patrocinador) {
+function crearSeccionPatrocinadores(titulo, listaPatrocinadores, destacarTarjetas) {
+    const section = document.createElement("section");
+    section.className = "sponsor-section";
+
+    if (destacarTarjetas) {
+        section.className = "sponsor-section sponsor-section-featured";
+    }
+
+    const h2 = document.createElement("h2");
+    h2.className = "sponsor-section-title";
+    h2.textContent = titulo;
+
+    const grid = document.createElement("div");
+    grid.className = "sponsor-section-grid";
+
+    for (let i = 0; i < listaPatrocinadores.length; i++) {
+        const patrocinador = listaPatrocinadores[i];
+        const tarjeta = crearTarjetaPatrocinador(patrocinador, destacarTarjetas);
+        grid.appendChild(tarjeta);
+    }
+
+    section.appendChild(h2);
+    section.appendChild(grid);
+
+    return section;
+}
+
+function crearTarjetaPatrocinador(patrocinador, destacada) {
     const article = document.createElement("article");
     article.className = "sponsor-card";
+
+    if (destacada) {
+        article.className = "sponsor-card sponsor-card-featured";
+    }
 
     const logo = document.createElement("div");
     logo.className = "sponsor-logo";
