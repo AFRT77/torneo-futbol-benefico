@@ -250,17 +250,14 @@ function crearTarjetaPatrocinador(patrocinador, destacada) {
     const nombre = document.createElement("h3");
     nombre.textContent = patrocinador.nombre;
 
-    const descripcion = document.createElement("p");
-
-    if (patrocinador.descripcion && patrocinador.descripcion.trim() !== "") {
-        descripcion.textContent = patrocinador.descripcion;
-    } else {
-        descripcion.textContent = "Colaborador del torneo";
-    }
-
     article.appendChild(logo);
     article.appendChild(nombre);
-    article.appendChild(descripcion);
+
+    if (patrocinador.descripcion && patrocinador.descripcion.trim() !== "") {
+        const descripcion = document.createElement("p");
+        descripcion.textContent = patrocinador.descripcion;
+        article.appendChild(descripcion);
+    }
 
     if (patrocinador.enlace && patrocinador.enlace.trim() !== "") {
         const enlace = document.createElement("a");
