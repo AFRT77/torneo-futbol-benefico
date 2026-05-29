@@ -519,3 +519,50 @@ footer span {
         border-color: rgba(147, 197, 253, 0.45);
     }
 }
+
+/* CRÉDITO DESARROLLO WEB EN FOOTER */
+
+.footer-developer {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(147, 197, 253, 0.18);
+}
+
+.footer-developer p {
+    margin-bottom: 8px;
+    color: var(--gray-light);
+    font-size: 13px;
+    letter-spacing: 0.8px;
+}
+
+.footer-developer p strong {
+    color: #ffffff;
+}
+
+.footer-developer-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.footer-developer-links a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(59, 130, 246, 0.14);
+    border: 1px solid rgba(147, 197, 253, 0.3);
+    color: #dbeafe;
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.footer-developer-links a:hover {
+    background: rgba(59, 130, 246, 0.28);
+    border-color: rgba(147, 197, 253, 0.55);
+    color: #ffffff;
+}
