@@ -373,3 +373,91 @@
     object-fit: cover;
     display: block;
 }
+
+/* DISEÑO Y DESARROLLO WEB */
+
+.developer-section {
+    margin-top: 52px;
+    margin-bottom: 20px;
+}
+
+.developer-section .sponsor-section-title {
+    color: #bfdbfe;
+}
+
+.developer-card {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 22px;
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at top, rgba(96, 165, 250, 0.18), transparent 45%),
+        linear-gradient(135deg, #0d2244, #071426);
+    border: 1px solid rgba(147, 197, 253, 0.45);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+}
+
+.developer-logo {
+    background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+    border-color: #bfdbfe;
+    box-shadow: 0 0 24px rgba(96, 165, 250, 0.32);
+}
+
+.developer-card h3 {
+    font-size: 34px;
+    color: #ffffff;
+}
+
+.developer-card p {
+    max-width: 620px;
+    margin: 8px auto 0;
+    color: #dbeafe;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.developer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.developer-actions a {
+    min-width: 230px;
+    text-align: center;
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    border-color: rgba(147, 197, 253, 0.6);
+    color: #ffffff;
+}
+
+.developer-actions a:hover {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+}
+
+@media (min-width: 600px) {
+    .developer-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 420px) {
+    .developer-card {
+        padding: 28px 16px;
+    }
+
+    .developer-card h3 {
+        font-size: 28px;
+    }
+
+    .developer-card p {
+        font-size: 14px;
+    }
+
+    .developer-actions a {
+        width: 100%;
+        min-width: auto;
+    }
+}

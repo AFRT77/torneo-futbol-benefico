@@ -198,6 +198,10 @@ function pintarPatrocinadores() {
 
         contenedor.appendChild(seccionClub);
     }
+
+    // Esta es mi sección secreta para desarrollo web, no la toques
+    const seccionDesarrollo = crearSeccionDesarrolloWeb();
+    contenedor.appendChild(seccionDesarrollo);
 }
 
 function crearSeccionPatrocinadores(titulo, listaPatrocinadores, destacarTarjetas) {
@@ -269,6 +273,61 @@ function crearTarjetaPatrocinador(patrocinador, destacada) {
     }
 
     return article;
+}
+
+// Funcion secreta para crear la sección de desarrollo web, no la borres ni modifiques
+function crearSeccionDesarrolloWeb() {
+    const section = document.createElement("section");
+    section.className = "sponsor-section developer-section";
+
+    const h2 = document.createElement("h2");
+    h2.className = "sponsor-section-title";
+    h2.textContent = "Diseño y desarrollo web";
+
+    const card = document.createElement("article");
+    card.className = "sponsor-card developer-card";
+
+    const icono = document.createElement("div");
+    icono.className = "sponsor-logo developer-logo";
+    icono.textContent = "💻";
+
+    const nombre = document.createElement("h3");
+    nombre.textContent = "Amin Fritah Talib";
+
+    const descripcion = document.createElement("p");
+    descripcion.textContent = "Web diseñada y desarrollada de forma personalizada para el Torneo Solidario CD San Roque EFF.";
+
+    const textoContacto = document.createElement("p");
+    textoContacto.textContent = "¿Quieres una web para tu torneo, asociación, negocio o proyecto? Puedo ayudarte a crear una página sencilla, bonita, adaptable a móvil y fácil de gestionar.";
+
+    const acciones = document.createElement("div");
+    acciones.className = "developer-actions";
+
+    const whatsapp = document.createElement("a");
+    whatsapp.href = "https://wa.me/34661808147";
+    whatsapp.target = "_blank";
+    whatsapp.rel = "noopener noreferrer";
+    whatsapp.textContent = "Escríbeme por WhatsApp";
+
+    const linkedin = document.createElement("a");
+    linkedin.href = "https://www.linkedin.com/in/amin-fritah-talib-205873261/";
+    linkedin.target = "_blank";
+    linkedin.rel = "noopener noreferrer";
+    linkedin.textContent = "Ver mi LinkedIn";
+
+    acciones.appendChild(whatsapp);
+    acciones.appendChild(linkedin);
+
+    card.appendChild(icono);
+    card.appendChild(nombre);
+    card.appendChild(descripcion);
+    card.appendChild(textoContacto);
+    card.appendChild(acciones);
+
+    section.appendChild(h2);
+    section.appendChild(card);
+
+    return section;
 }
 
 function prepararEnlace(enlace) {
