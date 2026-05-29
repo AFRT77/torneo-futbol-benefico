@@ -217,7 +217,7 @@ function pintarGrupos() {
             header.textContent = "⚽ " + grupo.nombre;
         } else {
             header.className = "group-header grupo-b";
-            header.textContent = "⭐ " + grupo.nombre;
+            header.textContent = "⚽ " + grupo.nombre;
         }
 
         article.appendChild(header);
@@ -260,7 +260,7 @@ function pintarPartidosGrupo() {
             label.textContent = "⚽ " + campo;
         } else {
             label.className = "field-label quazzartech";
-            label.textContent = "🏟 " + campo;
+            label.textContent = "⚽ " + campo;
         }
 
         section.appendChild(label);
@@ -403,41 +403,82 @@ function crearBloqueEliminatoria(partido) {
         header.className = "ko-header quinto";
     }
 
-    const fase = document.createElement("span");
-    fase.textContent = partido.fase + " · " + partido.campo;
+    let iconoFase = "⚔️";
 
-    const hora = document.createElement("span");
-    hora.textContent = partido.hora;
+    if (partido.fase.includes("3º") || partido.fase.includes("4º")) {
+        iconoFase = "🥉";
+    }
+
+    if (partido.fase.includes("5º") || partido.fase.includes("6º")) {
+        iconoFase = "🎖️";
+    }
+
+    const fase = document.createElement("span");
+    fase.textContent = iconoFase + " " + partido.fase + " · " + partido.campo;
 
     header.appendChild(fase);
-    header.appendChild(hora);
 
-    const match = document.createElement("div");
-    match.className = "ko-match";
+    const tabla = document.createElement("div");
+    tabla.className = "ko-table";
+
+    const cabecera = document.createElement("div");
+    cabecera.className = "ko-table-head";
+
+    const thPartido = document.createElement("div");
+    thPartido.textContent = "Partido";
+
+    const thHora = document.createElement("div");
+    thHora.textContent = "Hora";
+
+    const thResultado = document.createElement("div");
+    thResultado.textContent = "Resultado";
+
+    cabecera.appendChild(thPartido);
+    cabecera.appendChild(thHora);
+    cabecera.appendChild(thResultado);
+
+    const fila = document.createElement("div");
+    fila.className = "ko-table-row";
+
+    const partidoTexto = document.createElement("div");
+    partidoTexto.className = "ko-table-teams";
 
     const local = document.createElement("span");
-    local.className = "ko-team";
-    local.textContent = partido.equipoLocal;
+    local.textContent = partido.equipoLocal || "";
 
     const vs = document.createElement("span");
     vs.className = "ko-vs";
     vs.textContent = "vs";
 
     const visitante = document.createElement("span");
-    visitante.className = "ko-team";
-    visitante.textContent = partido.equipoVisitante;
+    visitante.textContent = partido.equipoVisitante || "";
 
-    const resultado = document.createElement("span");
-    resultado.className = "ko-result";
-    resultado.textContent = partido.resultado;
+    partidoTexto.appendChild(local);
+    partidoTexto.appendChild(vs);
+    partidoTexto.appendChild(visitante);
 
-    match.appendChild(local);
-    match.appendChild(vs);
-    match.appendChild(visitante);
-    match.appendChild(resultado);
+    const hora = document.createElement("div");
+    hora.className = "ko-table-time";
+    hora.textContent = partido.hora || "";
+
+    const resultado = document.createElement("div");
+    resultado.className = "ko-table-result";
+
+    if (partido.resultado && partido.resultado.trim() !== "") {
+        resultado.textContent = partido.resultado;
+    } else {
+        resultado.textContent = "-:-";
+    }
+
+    fila.appendChild(partidoTexto);
+    fila.appendChild(hora);
+    fila.appendChild(resultado);
+
+    tabla.appendChild(cabecera);
+    tabla.appendChild(fila);
 
     article.appendChild(header);
-    article.appendChild(match);
+    article.appendChild(tabla);
 
     return article;
 }
@@ -474,43 +515,73 @@ function pintarFinal() {
     header.appendChild(titulo);
     header.appendChild(campo);
 
-    const match = document.createElement("div");
-    match.className = "final-match";
+    const tabla = document.createElement("div");
+    tabla.className = "final-table";
+
+    const cabecera = document.createElement("div");
+    cabecera.className = "final-table-head";
+
+    const thPartido = document.createElement("div");
+    thPartido.textContent = "Partido";
+
+    const thHora = document.createElement("div");
+    thHora.textContent = "Hora";
+
+    const thResultado = document.createElement("div");
+    thResultado.textContent = "Resultado";
+
+    cabecera.appendChild(thPartido);
+    cabecera.appendChild(thHora);
+    cabecera.appendChild(thResultado);
+
+    const fila = document.createElement("div");
+    fila.className = "final-table-row";
+
+    const partidoTexto = document.createElement("div");
+    partidoTexto.className = "final-table-teams";
 
     const local = document.createElement("span");
-    local.className = "final-team";
-    local.textContent = final.equipoLocal;
+    local.textContent = final.equipoLocal || "";
 
     const vs = document.createElement("span");
     vs.className = "final-vs";
     vs.textContent = "vs";
 
     const visitante = document.createElement("span");
-    visitante.className = "final-team";
-    visitante.textContent = final.equipoVisitante;
+    visitante.textContent = final.equipoVisitante || "";
 
-    const hora = document.createElement("span");
-    hora.className = "final-time";
-    hora.textContent = final.hora;
+    partidoTexto.appendChild(local);
+    partidoTexto.appendChild(vs);
+    partidoTexto.appendChild(visitante);
 
-    const resultado = document.createElement("span");
-    resultado.className = "final-result";
-    resultado.textContent = final.resultado;
+    const hora = document.createElement("div");
+    hora.className = "final-table-time";
+    hora.textContent = final.hora || "";
 
-    match.appendChild(local);
-    match.appendChild(vs);
-    match.appendChild(visitante);
-    match.appendChild(hora);
-    match.appendChild(resultado);
+    const resultado = document.createElement("div");
+    resultado.className = "final-table-result";
+
+    if (final.resultado && final.resultado.trim() !== "") {
+        resultado.textContent = final.resultado;
+    } else {
+        resultado.textContent = "-:-";
+    }
+
+    fila.appendChild(partidoTexto);
+    fila.appendChild(hora);
+    fila.appendChild(resultado);
+
+    tabla.appendChild(cabecera);
+    tabla.appendChild(fila);
 
     section.appendChild(header);
-    section.appendChild(match);
+    section.appendChild(tabla);
 
     contenedor.appendChild(section);
 }
 
 function pintarTrofeos() {
-    document.getElementById("trofeos-bar").textContent = categoriaActual.trofeos;
+    document.getElementById("trofeos-bar").textContent = "🏆 " + categoriaActual.trofeos;
 }
 
 function mostrarCategoriaNoEncontrada() {

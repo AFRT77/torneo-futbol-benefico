@@ -594,3 +594,218 @@
 .final-header span {
     color: #ffffff;
 }
+
+/* GRUPOS CON MISMO ESTILO */
+
+.group-block {
+    border: 1px solid rgba(96, 165, 250, 0.25);
+}
+
+.group-header.grupo-a,
+.group-header.grupo-b {
+    background: linear-gradient(135deg, #123366, #0d2244);
+    color: #ffffff;
+}
+
+/* CAMPOS CON MISMO ESTILO */
+
+.field-label.chutapp,
+.field-label.quazzartech {
+    background: linear-gradient(135deg, #123366, #0d2244);
+    color: #ffffff;
+    border-color: rgba(96, 165, 250, 0.35);
+}
+
+/* ENTREGA DE TROFEOS MÁS DESTACADA */
+
+#trofeos-bar,
+.trofeos-bar {
+    background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+    border: 1px solid rgba(191, 219, 254, 0.65);
+    color: #ffd500;
+    box-shadow: 0 0 22px rgba(96, 165, 250, 0.35);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ELIMINATORIAS CON ESTILO TIPO TABLA */
+
+.ko-table {
+    width: 100%;
+    background: rgba(7, 20, 38, 0.55);
+}
+
+.ko-table-head,
+.ko-table-row {
+    display: grid;
+    grid-template-columns: 1fr 110px 120px;
+    align-items: center;
+}
+
+.ko-table-head {
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.035);
+    border-bottom: 1px solid rgba(147, 197, 253, 0.12);
+    color: #93c5fd;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.ko-table-row {
+    min-height: 56px;
+    padding: 12px 16px;
+}
+
+.ko-table-teams {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.ko-table-time,
+.ko-table-result {
+    text-align: center;
+    color: #bfdbfe;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.ko-table-result {
+    color: #ffffff;
+}
+
+.ko-vs {
+    color: #93c5fd;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+    .ko-table-head,
+    .ko-table-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .ko-table-head {
+        display: none;
+    }
+
+    .ko-table-teams {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* FINAL CON ESTILO TIPO TABLA */
+
+.final-table {
+    width: 100%;
+    background: rgba(7, 20, 38, 0.55);
+}
+
+.final-table-head,
+.final-table-row {
+    display: grid;
+    grid-template-columns: 1fr 110px 120px;
+    align-items: center;
+}
+
+.final-table-head {
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.035);
+    border-bottom: 1px solid rgba(147, 197, 253, 0.12);
+    color: #93c5fd;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.final-table-row {
+    min-height: 62px;
+    padding: 14px 16px;
+}
+
+.final-table-teams {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.final-table-time,
+.final-table-result {
+    text-align: center;
+    color: #bfdbfe;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.final-table-result {
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    .final-table-head,
+    .final-table-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .final-table-head {
+        display: none;
+    }
+
+    .final-table-teams {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* ALINEAR CABECERAS DE ELIMINATORIAS Y FINAL */
+
+.ko-table-head > div,
+.final-table-head > div {
+    text-align: center;
+}
+
+.ko-table-head > div:first-child,
+.final-table-head > div:first-child {
+    text-align: left;
+}
+
+.ko-table-teams,
+.final-table-teams {
+    justify-content: flex-start;
+}
+
+.ko-table-time,
+.ko-table-result,
+.final-table-time,
+.final-table-result {
+    text-align: center;
+}
