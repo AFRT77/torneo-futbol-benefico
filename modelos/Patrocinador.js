@@ -26,6 +26,17 @@ const patrocinadorSchema = new mongoose.Schema({
         default: ""
     },
 
+    tipo: {
+        type: String,
+        enum: ["torneo", "club"],
+        default: "torneo"
+    },
+
+    destacado: {
+        type: Boolean,
+        default: false
+    },
+
     orden: {
         type: Number,
         default: 0

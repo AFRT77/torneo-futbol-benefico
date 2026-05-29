@@ -13,6 +13,8 @@ const patrocinadoresPorDefecto = [
         logo: "",
         icono: "☕",
         enlace: "",
+        tipo: "club",
+        destacado: false,
         orden: 1,
         visible: true
     },
@@ -22,6 +24,8 @@ const patrocinadoresPorDefecto = [
         logo: "",
         icono: "🦷",
         enlace: "",
+        tipo: "torneo",
+        destacado: false,
         orden: 2,
         visible: true
     },
@@ -31,6 +35,8 @@ const patrocinadoresPorDefecto = [
         logo: "",
         icono: "🔧",
         enlace: "",
+        tipo: "torneo",
+        destacado: false,
         orden: 3,
         visible: true
     }
@@ -94,6 +100,8 @@ router.post("/", verificarToken, async (req, res) => {
             logo: req.body.logo,
             icono: req.body.icono,
             enlace: req.body.enlace,
+            tipo: req.body.tipo || "torneo",
+            destacado: req.body.destacado === true,
             orden: req.body.orden,
             visible: req.body.visible
         });
@@ -129,6 +137,8 @@ router.put("/:id", verificarToken, async (req, res) => {
                 logo: req.body.logo,
                 icono: req.body.icono,
                 enlace: req.body.enlace,
+                tipo: req.body.tipo || "torneo",
+                destacado: req.body.destacado === true,
                 orden: req.body.orden,
                 visible: req.body.visible
             },

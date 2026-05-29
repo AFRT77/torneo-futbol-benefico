@@ -172,17 +172,13 @@ nav {
 
 .nav-cat {
     display: inline-block;
-    background: var(--blue-bright);
-    color: var(--white);
+    background: #2563eb;
+    color: #ffffff;
     font-size: 10px;
     padding: 1px 6px;
     border-radius: 3px;
     margin-left: 6px;
     vertical-align: middle;
-}
-
-.nav-cat.alevin {
-    background: var(--red);
 }
 
 .nav-admin-btn {
@@ -385,22 +381,36 @@ footer span {
     display: block;
 }
 
-/* COLORES EXTRA PARA BOTONES DEL MENÚ */
+/* COLORES DE CATEGORÍAS EN EL MENÚ */
+
+.nav-cat.benjamin {
+    background: #2563eb !important;
+    color: #ffffff;
+}
+
+.nav-cat.alevin {
+    background: #dc2626 !important;
+    color: #ffffff;
+}
 
 .nav-cat.dorado {
-    background: #f59e0b;
+    background: #f59e0b !important;
+    color: #ffffff;
 }
 
 .nav-cat.verde {
-    background: #16a34a;
+    background: #16a34a !important;
+    color: #ffffff;
 }
 
 .nav-cat.morado {
-    background: #9333ea;
+    background: #9333ea !important;
+    color: #ffffff;
 }
 
 .nav-cat.naranja {
-    background: #ea580c;
+    background: #ea580c !important;
+    color: #ffffff;
 }
 
 /* TEMA BLANCO Y AZUL */
